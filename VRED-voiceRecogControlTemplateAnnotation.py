@@ -10,12 +10,23 @@ Scripted by Rutvik Bhatt and Simon Nagel. Supported by Marcus Fritzen.
 
 Make sure to install pyaudio and speech_recognition
 
+To use Recognition
 Just paste the Scene in the Script Editor of VRED and press run.
 Press V to enable the voice recognition mode.
 Immediately start speaking after pressing V .
 Take a pause after finish speaking and wait for your audio to process.
 Once you see the output in the terminal start speaking again .
 Press B to manually disable voice recognition.
+
+To use Annotations
+Press A to enable the voice annotation mode.
+Immediately start speaking after pressing A .
+Take a pause after finish speaking and wait for your audio to process.
+Once you see the output in the terminal start speaking again to change the current annotation.
+Say 'stop' to stop working on current annotation 
+Press A again to create a new annotation.
+Say 'remove' to erase your current annotation.
+Press S to manually disable voice annotation.
 
 '''
 
