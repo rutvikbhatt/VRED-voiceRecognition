@@ -141,7 +141,8 @@ def mainKeywords():
     registerKeywordFunction(["select"], ourSelectFunction)
     registerKeywordFunction(["variant","radiants","Marion"], selVar)
     registerKeywordFunction(["rotate"], ourRotateFunction)
-
+    registerKeywordFunction(["isolate"], ourIsolateFunction)
+    registerKeywordFunction(["viewpoint"], ourViewPointFunction)
         
 # Custom functions can be defined here
 def myMove(direction, valueStr):
@@ -195,7 +196,30 @@ def selVar(ourArgument):
         print("\n   Could not find variant set'"+str(ourArgument)+"'")
     else:
         print("\n   The variant set '"+str(ourArgument)+"' was executed.\n")
+        
+def ourIsolateFunction(ourArgument):
+    
+    if ourArgument == "start":
+        isolateVoiceRecog = getSceneIntersection(-1, int(getRenderWindowWidth(-1)/2), int(getRenderWindowHeight(-1)/2))
+        isolatedNode = [isolateVoiceRecog[0]]
+        setIsolateView(0, isolatedNode)
+    elif ourArgument == "stop" or ourArgument == "stock" :
+        resetIsolateView(-1)
+    else:
+        print("please provide valid argument after 'Isolate' for ex. 'Isolate start or Isolate stop'")
 
+def ourViewPointFunction(ourArgument):
+    allViewPoints = vrCameraService.getAllViewpoints()
+    viewPointFound = False
+    for viewPoint in allViewPoints:
+        if viewPoint.getName().lower() == ourArgument:      
+            viewPointVoiceRecg = vrCameraService.getViewpoint(viewPoint.getName()).activate()
+            viewPointFound = True
+    if viewPointFound == False:
+        print("could not find viewPoint")
+    else:
+        print("View Point is set")
+        
 mainKeywords()
 key2 = vrKey(Key_B)
 key2.connect(VoiceRecogControl_audio_stop)
@@ -310,8 +334,8 @@ def syncCollabAnnoMaterials():
     
     if vrSessionService.isConnected() != 1:
         # change to a foldername on your PC
-        foldername = "c:/tempe/"
-        vrAnnotationService.saveAnnotations(vrAnnotationService.getAnnotations(),foldername + "mVoiceAnno2data.xml")
+        #foldername = "c:/tempe/"
+        vrAnnotationService.saveAnnotations(vrAnnotationService.getAnnotations(),"NewVoiceAnno2data.xml")
         
 key3 = vrKey(Key_S)
 key3.connect(voiceRecogAnno_audio_stop)        
